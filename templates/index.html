@@ -1,42 +1,29 @@
 <html>
   <head>
-  <title>Rough AJAX Test</title>
-    <script>
-      function loadXMLDoc()
-      {
-          var req = new XMLHttpRequest()
-          req.onreadystatechange = function() {
-            if (req.readyState == 4) {
-              if (req.status != 200)
-              {
-                //error handling code here
-              }
-              else
-              {
-                var response = JSON.parse(req.responseText)
-                document.getElementById('myDiv').innerHTML = response.username
-              }
-            }
-          }
-
-          req.open('POST', '/ajax')
-          req.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-          var un = document.getElementById('scname').value
-          var sec = document.getElementById('secret').value
-          var postVars = 'username='+un+'&secret='+sec
-          req.send(postVars)
-
-          return false
-        }
-    </script>
+    <title>RoboCar</title>
   </head>
   <body>
-  <h1>Flask AJAX Test</h1>
-    <form action="" method="POST">
-    <input type="text" name="scname" id="scname">
-    <input type="hidden" name="secret" id="secret" value="shhh">
-    <input type="button" value="Submit" onclick="return loadXMLDoc()">
-    </form>
-    <div id="myDiv"></div>
+  <h1>Remotely Drive RoboCar</h1>
+    <button onclick="send('driveForward')">Forward</button>
+    <button onclick="send('driveReverse')">Reverse</button>
+    <button onclick="send('forwardRight')">Forward Right</button>
+    <button onclick="send('forwardLeft')">Forward Left</button>
+    <button onclick="send('reverseRight')">Reverse Right</button>
+    <button onclick="send('reverseLeft')">Reverse Left</button>
+    <button onclick="send('clockwise')">Clockwise</button>
+    <button onclick="send('counterClockwise')">Counter Clockwise</button>
+    <button onclick="send('stop')">stop</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+      function send(direction) {
+        $.ajax({
+          type: "POST",
+          url: "/ajax",
+          data: JSON.stringify({ 'command' : direction }),
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+        });
+      }
+    </script>
   </body>
 </html>
