@@ -1,13 +1,11 @@
 from flask import (Flask, request, jsonify, render_template)
 import json
-
-"""
 import RPi.GPIO as gpio
 import time
-"""
+
 app = Flask(__name__)
 
-"""
+
 def init():
   gpio.setmode(gpio.BOARD)
   gpio.setup(7, gpio.OUT)
@@ -15,79 +13,61 @@ def init():
   gpio.setup(13, gpio.OUT)
   gpio.setup(15, gpio.OUT)
 
-def driveForward(dt):
+def driveForward():
   init()
   gpio.output(7, True)
   gpio.output(11, False)
   gpio.output(13, False)
   gpio.output(15, True)
-  time.sleep(dt)
-  gpio.cleanup()
 
-def driveReverse(dt):
+def driveReverse():
   init()
   gpio.output(7, False)
   gpio.output(11, True)
   gpio.output(13, True)
   gpio.output(15, False)
-  time.sleep(dt)
-  gpio.cleanup()
 
-def forwardRight(dt):
+def forwardRight():
   init()
   gpio.output(7, True)
   gpio.output(11, False)
   gpio.output(13, False)
   gpio.output(15, False)
-  time.sleep(dt)
-  gpio.cleanup()
 
-def forwardLeft(dt):
+def forwardLeft():
   init()
   gpio.output(7, False)
   gpio.output(11, False)
   gpio.output(13, False)
   gpio.output(15, True)
-  time.sleep(dt)
-  gpio.cleanup()
 
-def reverseRight(dt):
+def reverseRight():
   init()
   gpio.output(7, False)
   gpio.output(11, True)
   gpio.output(13, False)
   gpio.output(15, False)
-  time.sleep(dt)
-  gpio.cleanup()
 
-def reverseLeft(dt):
+def reverseLeft():
   init()
   gpio.output(7, False)
   gpio.output(11, False)
   gpio.output(13, True)
   gpio.output(15, False)
-  time.sleep(dt)
-  gpio.cleanup()
 
-def clockwise(dt):
+def clockwise():
   init()
   gpio.output(7, True)
   gpio.output(11, False)
   gpio.output(13, True)
-  gpio.output(15, False)
-  time.sleep(dt)
-  gpio.cleanup()
+  gpio.output(15, False)  
 
-def counterClockwise(dt):
+def counterClockwise():
   init()
   gpio.output(7, False)
   gpio.output(11, True)
   gpio.output(13, False)
   gpio.output(15, True)
-  time.sleep(dt)
-  gpio.cleanup()
-  
-  """
 
 
 @app.route("/")
@@ -99,22 +79,27 @@ def ajax():
   json_dict = request.get_json()
   data = json_dict['command']
   if data == 'driveForward':
-    driveForward(1000)
+    driveForward(3)
   elif data == 'driveReverse':
-    driveReverse(1000)
+    driveReverse(3)
   elif data == 'forwardRight':
-    forwardRight(1000)
+    forwardRight(3)
   elif data == 'forwardLeft':
-    forwardLeft(1000)
+    forwardLeft(3)
   elif data == 'reverseRight':
-    reverseRight(1000)
+    reverseRight(3)
   elif data == 'reverseLeft':
-    reverseLeft(1000)
+    reverseLeft(3)
   elif data == 'clockwise':
-    clockwise(1000)
+    clockwise(3)
   elif data == 'counterClockwise':
-    counterClockwise(1000)
+    counterClockwise()
   elif data == 'stop':
+    init()
+    gpio.output(7, False)
+    gpio.output(11, False)
+    gpio.output(13, False)
+    gpio.output(15, False)
     gpio.cleanup()
     
   return json.dumps(request.json)

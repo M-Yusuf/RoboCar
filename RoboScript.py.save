@@ -1,0 +1,91 @@
+from flask import Flask
+import RPi.GPIO as gpio
+import time
+
+app = Flask(__name__)
+
+def init():
+  gpio.setmode(gpio.BOARD)
+  gpio.setup(7, gpio.OUT)
+  gpio.setup(11, gpio.OUT)
+  gpio.setup(13, gpio.OUT)
+  gpio.setup(15, gpio.OUT)
+
+def driveForward(dt):
+  init()
+  gpio.output(7, True)
+  gpio.output(11, False)
+  gpio.output(13, False)
+  gpio.output(15, True)
+  time.sleep(dt)
+  gpio.cleanup()
+
+def driveReverse(dt):
+  init()
+  gpio.output(7, False)
+  gpio.output(11, True)
+  gpio.output(13, True)
+  gpio.output(15, False)
+  time.sleep(dt)
+  gpio.cleanup()
+
+def forwardRight(dt):
+  init()
+  gpio.output(7, True)
+  gpio.output(11, False)
+  gpio.output(13, False)
+  gpio.output(15, False)
+  time.sleep(dt)
+  gpio.cleanup()
+
+def forwardLeft(dt):
+  init()
+  gpio.output(7, False)
+  gpio.output(11, False)
+  gpio.output(13, False)
+  gpio.output(15, True)
+  time.sleep(dt)
+  gpio.cleanup()
+
+def reverseRight(dt):
+  init()
+  gpio.output(7, False)
+  gpio.output(11, True)
+  gpio.output(13, False)
+  gpio.output(15, False)
+  time.sleep(dt)
+  gpio.cleanup()
+
+def reverseLeft(dt):
+  init()
+  gpio.output(7, False)
+  gpio.output(11, False)
+  gpio.output(13, True)
+  gpio.output(15, False)
+  time.sleep(dt)
+  gpio.cleanup()
+
+def clockwise(dt):
+  init()
+  gpio.output(7, True)
+  gpio.output(11, False)
+  gpio.output(13, True)
+  gpio.output(15, False)
+  time.sleep(dt)
+  gpio.cleanup()
+
+def counterClockwise(dt):
+  init()
+  gpio.output(7, False)
+  gpio.output(11, True)
+  gpio.output(13, False)
+  gpio.output(15, True)
+  time.sleep(dt)
+  gpio.cleanup()
+
+def keyInput(event):
+  init()
+ 
+
+if __name__ == "__main__":
+    app.run(debug=True,host='0.0.0.0', port=4000)

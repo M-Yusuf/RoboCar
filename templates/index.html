@@ -4,15 +4,15 @@
   </head>
   <body>
   <h1>Remotely Drive RoboCar</h1>
-    <button onclick="send('driveForward')">Forward</button>
-    <button onclick="send('driveReverse')">Reverse</button>
-    <button onclick="send('forwardRight')">Forward Right</button>
-    <button onclick="send('forwardLeft')">Forward Left</button>
-    <button onclick="send('reverseRight')">Reverse Right</button>
-    <button onclick="send('reverseLeft')">Reverse Left</button>
-    <button onclick="send('clockwise')">Clockwise</button>
-    <button onclick="send('counterClockwise')">Counter Clockwise</button>
-    <button onclick="send('stop')">stop</button>
+    <button onmousedown="send('driveForward')">Forward</button>
+    <button onmousedown="send('driveReverse')">Reverse</button>
+    <button onmousedown="send('forwardRight')">Forward Right</button>
+    <button onmousedown="send('forwardLeft')">Forward Left</button>
+    <button onmousedown="send('reverseRight')">Reverse Right</button>
+    <button onmousedown="send('reverseLeft')">Reverse Left</button>
+    <button onmousedown="send('clockwise')">Clockwise</button>
+    <button onmousedown="send('counterClockwise')">Counter Clockwise</button>
+    <button onmousedown="send('stop')">stop</button>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
       function send(direction) {
@@ -24,6 +24,16 @@
           dataType: "json",
         });
       }
+
+      $("button").mouseup(function(){
+        $.ajax({
+          type: "POST",
+          url: "/ajax",
+          data: JSON.stringify({ 'command' : 'stop' }),
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+        });
+      });
     </script>
   </body>
 </html>
