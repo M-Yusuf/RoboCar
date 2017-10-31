@@ -79,19 +79,19 @@ def ajax():
   json_dict = request.get_json()
   data = json_dict['command']
   if data == 'driveForward':
-    driveForward(3)
+    driveForward()
   elif data == 'driveReverse':
-    driveReverse(3)
+    driveReverse()
   elif data == 'forwardRight':
-    forwardRight(3)
+    forwardRight()
   elif data == 'forwardLeft':
-    forwardLeft(3)
+    forwardLeft()
   elif data == 'reverseRight':
-    reverseRight(3)
+    reverseRight()
   elif data == 'reverseLeft':
-    reverseLeft(3)
+    reverseLeft()
   elif data == 'clockwise':
-    clockwise(3)
+    clockwise()
   elif data == 'counterClockwise':
     counterClockwise()
   elif data == 'stop':
